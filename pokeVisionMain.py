@@ -3,8 +3,11 @@
 # and stuff. Trying to envision it currently. Really want to focus
 # on solid principles and building a nice looking application. 
 
+import tkinter as tk
+from pokeScan.GUI import GUIHandler
 from pokeScan import ImageHandler
-from pokeScan import GUI
-import pokeScan.GUI as gui
 
-gui()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = GUIHandler(root)
+    root.mainloop()

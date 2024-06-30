@@ -1,36 +1,53 @@
-from ImageHandler import *
 import tkinter as tk
-#from tkinter import filedialog, Label, Pack
+from tkinter import filedialog, Label
+from pokeScan.ImageHandler import ImageHandler
 
-class GUI():
-    
-    root = tk.Tk()
-    root.title("Computer Vision App")
+class GUIHandler:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Computer Vision App")
 
-    window_width = 320
-    window_height = 240
+        # Set the initial size of the window
+        window_width = 800
+        window_height = 600
 
-    # Get the screen dimension
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+        # Get the screen dimension
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
 
-    # Calculate the center position
-    center_x = int(screen_width / 2 - window_width / 2)
-    center_y = int(screen_height / 2 - window_height / 2)
+        # Calculate the center position
+        center_x = int(screen_width / 2 - window_width / 2)
+        center_y = int(screen_height / 2 - window_height / 2)
 
-    # Set the geometry of the window
-    root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
+        # Set the geometry of the window
+        self.root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
 
-    # Create and place the buttons
-    open_button = tk.Button(root, text="Open Image", command=open_file)
-    open_button.pack(pady=10)
+        # Create and place the buttons
+        self.open_button = tk.Button(self.root, text="Open Image", command=self.open_file)
+        self.open_button.pack(pady=10)
 
-    process_button = tk.Button(root, text="Process Image", command=process_image)
-    process_button.pack(pady=10)
+        self.process_button = tk.Button(self.root, text="Process Image", command=self.process_image_command)
+        self.process_button.pack(pady=10)
 
-    # Create and place the image display label
-    image_label = tk.Label(root)
-    image_label.pack(pady=10)
+        # Create and place the image display label
+        self.image_label = Label(self.root)
+        self.image_label.pack(pady=10)
 
-    # Run the application
-    root.mainloop()
+        # Initialize variables to store images
+        self.img = None
+        self.img_display = None
+
+    def open_file(self):
+        file_path = filedialog.askopenfilename(
+            filetypes=[("Image files", "*.jpg *.jpeg *.png *.bmp *.tiff")]
+        )
+        if file_path:
+            self.img, self.img_display = ImageHandler.load_image(file_path)
+            self.image_label.config(image=self.img_display)
+            self.image_label.image = self.img_display
+
+    def process_image_command(self):
+        if self.img is not None:
+            self.img_display = ImageHandler.process_image(self.img)
+            self.image_label.config(image=self.img_display)
+            self.image_label.image = self.img_display

@@ -1,9 +1,10 @@
-import ImageHandler
-import tkinter as Tk
+from ImageHandler import *
+import tkinter as tk
+#from tkinter import filedialog, Label, Pack
 
 class GUI():
-
-    root = Tk()
+    
+    root = tk.Tk()
     root.title("Computer Vision App")
 
     window_width = 320
@@ -28,7 +29,7 @@ class GUI():
     process_button.pack(pady=10)
 
     # Create and place the image display label
-    image_label = Label(root)
+    image_label = tk.Label(root)
     image_label.pack(pady=10)
 
     # Run the application

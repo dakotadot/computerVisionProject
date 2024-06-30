@@ -4,6 +4,7 @@
 # on solid principles and building a nice looking application. 
 
 from pokeScan import ImageHandler
+from pokeScan import GUI
 import pokeScan.GUI as gui
 
 gui()
